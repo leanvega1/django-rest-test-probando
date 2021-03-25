@@ -1,0 +1,32 @@
+{% extends 'nav.html' %} {% block page_title %}Box Activities{% endblock page_title %} {% block main %}
+<div class="d-flex">
+  <h1>Box {{box.name}} Activities</h1>
+</div>
+<ul class="list-group">
+  {% for activity in page_selected.object_list %}
+  <a class="list-group-item list-group-item-action" href="{% url 'bigbox:activity_detail' box.id activity.id %}"
+    >{{activity.name}}</a
+  >
+  {% endfor %}
+</ul>
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    {% if page_selected.has_previous %}
+    <li class="page-item">
+      <a class="page-link" href="?page=1" tabindex="-1" aria-disabled="true">&laquo; First</a>
+    </li>
+    <li class="page-item"><a class="page-link" href="?page={{ page_selected.previous_page_number }}">Previous</a></li>
+    {% endif %}
+    <li class="page-item disabled">
+      <a class="page-link" href="#">Page {{ page_selected.number }} of {{ page_selected.paginator.num_pages }} </a>
+    </li>
+
+    {% if page_selected.has_next %}
+    <li class="page-item"><a class="page-link" href="?page={{ page_selected.next_page_number }}">Next</a></li>
+    <li class="page-item">
+      <a class="page-link" href="?page={{ page_selected.paginator.num_pages }}">Last &raquo;</a>
+    </li>
+    {% endif %}
+  </ul>
+</nav>
+{% endblock main %}
